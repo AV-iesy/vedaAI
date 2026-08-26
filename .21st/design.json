@@ -89,8 +89,8 @@
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     },
     {
-      "decision": "Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button, and a mixed heavy-sans and italic-serif editorial headline on the scenery page.",
-      "reason": "The user selected a compact outlined button reference and an expressive, layered typography reference for the first viewport."
+      "decision": "Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and a spacious mixed heavy-sans and italic-serif editorial headline on the scenery page.",
+      "reason": "The user selected a compact outlined button reference and an expressive typography reference, then requested more breathing room between the headline lines."
     }
   ],
   "evidence": [

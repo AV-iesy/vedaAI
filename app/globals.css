@@ -44,13 +44,13 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .scenery-header { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; padding: 24px 30px; }
 .scenery-wordmark { color: var(--paper); font-size: 28px; font-weight: 900; letter-spacing: -.06em; text-shadow: 3px 3px 0 rgba(53, 47, 82, .9); }
 .ai-assistant-button { min-height: 48px; padding: 0 20px; display: inline-flex; align-items: center; justify-content: center; color: #fff6d0; border: 3px solid #ffe18a; border-radius: 0; background: #80639a; box-shadow: 5px 6px 0 #ffe18a; font-family: "Courier New", monospace; font-size: 13px; font-weight: 900; letter-spacing: .02em; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease; }
-.ai-assistant-button:hover { color: #56305f; background: var(--pink); transform: translate(2px, 2px); box-shadow: 3px 4px 0 #ffe18a; }
+.ai-assistant-button:hover { color: #56305f; background: #f2dfbd; transform: translate(2px, 2px); box-shadow: 3px 4px 0 #ffe18a; }
 .ai-assistant-button:focus-visible { outline: 3px solid var(--paper); outline-offset: 5px; }
 .scenery-title { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; padding: 100px 30px 60px; text-align: center; pointer-events: none; }
-.scenery-title h1 { width: min(900px, 100%); margin: 0; color: #fff2b9; font-size: clamp(66px, 8.5vw, 128px); line-height: .7; text-shadow: 0 5px 20px rgba(30, 42, 60, .42); transform: translateY(-3%); }
-.scenery-title__upload, .scenery-title__level { display: block; font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif; font-style: normal; font-weight: 900; letter-spacing: -.085em; }
+.scenery-title h1 { width: min(820px, 100%); margin: 0; display: grid; gap: clamp(14px, 1.8vw, 28px); color: #fff2b9; font-size: clamp(58px, 7.3vw, 112px); line-height: .84; text-shadow: 0 5px 20px rgba(30, 42, 60, .42); transform: translateY(-3%); }
+.scenery-title__upload, .scenery-title__level { display: block; font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif; font-style: normal; font-weight: 900; letter-spacing: -.065em; }
 .scenery-title__upload { padding-right: .45em; text-align: left; }
-.scenery-title__match { position: relative; z-index: 1; display: block; margin: -.02em 0 -.13em; padding-left: .34em; font-family: Georgia, "Times New Roman", serif; font-size: .94em; font-weight: 400; font-style: italic; letter-spacing: -.075em; text-align: center; }
+.scenery-title__match { position: relative; z-index: 1; display: block; padding-left: .34em; font-family: Georgia, "Times New Roman", serif; font-size: .9em; font-weight: 400; font-style: italic; letter-spacing: -.055em; text-align: center; }
 .scenery-title__level { padding-left: .36em; text-align: right; }
 .upload-shell { position: relative; min-height: 100vh; overflow: hidden; background-color: var(--canvas); background-image: linear-gradient(90deg, rgba(140, 116, 205, .08) 1px, transparent 1px), linear-gradient(rgba(140, 116, 205, .08) 1px, transparent 1px); background-size: 24px 24px; }
 .upload-shell::before, .upload-shell::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
@@ -217,9 +217,8 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
   .scenery-wordmark { font-size: 23px; }
   .ai-assistant-button { min-height: 42px; padding: 0 13px; font-size: 10px; box-shadow: 3px 4px 0 #ffe18a; }
   .scenery-title { padding: 88px 18px 50px; }
-  .scenery-title h1 { font-size: clamp(48px, 15vw, 70px); line-height: .74; }
+  .scenery-title h1 { gap: 12px; font-size: clamp(44px, 13.5vw, 64px); line-height: .86; }
   .scenery-title__upload, .scenery-title__match, .scenery-title__level { padding: 0; text-align: center; }
-  .scenery-title__match { margin: .02em 0 -.08em; }
   .upload-hero { width: min(100% - 20px, 560px); padding: 45px 10px 34px; }
   .hero-copy { padding: 22px 16px 28px; }
   .hero-kicker { margin-left: auto; margin-right: auto; }
