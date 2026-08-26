@@ -45,7 +45,7 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .upload-shell::after { display: none; }
 .upload-shell > * { position: relative; z-index: 1; }
 .upload-hero { width: min(820px, calc(100% - 42px)); margin: 0 auto; padding: 72px 20px 48px; text-align: center; }
-.hero-copy { display: flex; flex-direction: column; align-items: center; padding: 28px 34px 34px; border: 3px solid var(--ink); border-radius: 12px; background: rgba(255, 250, 242, .84); box-shadow: 8px 8px 0 rgba(53, 47, 82, .86); backdrop-filter: blur(4px); }
+.hero-copy { display: flex; flex-direction: column; align-items: center; padding: 28px 34px 34px; border: 3px solid var(--ink); border-radius: 12px; background: rgba(255, 250, 242, .64); box-shadow: 8px 8px 0 rgba(53, 47, 82, .86); backdrop-filter: blur(2px); }
 .hero-kicker { width: fit-content; display: flex; align-items: center; gap: 7px; margin-bottom: 18px; padding: 7px 10px; color: var(--ink); border: 2px solid var(--ink); border-radius: 6px; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); font-family: "Courier New", monospace; font-size: 10px; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
 .upload-hero h1 { margin: 0; font-size: clamp(50px, 6vw, 76px); line-height: .93; letter-spacing: -.065em; font-weight: 900; }
 .upload-hero h1 em { display: inline-block; padding: 4px 14px 8px; color: var(--ink); background: var(--pink); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--lavender); font-style: normal; transform: rotate(-1.5deg); }
