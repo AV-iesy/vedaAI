@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "project": {
+    "name": "veda-ai",
+    "productType": "teacher assessment review workspace",
+    "stack": [
+      "nextjs",
+      "react"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "app/globals.css"
+    ],
+    "components": [],
+    "assets": [],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "--muted": {
+        "value": "#69716c",
+        "source": "app/globals.css"
+      }
+    },
+    "typography": {},
+    "spacing": {},
+    "radius": {},
+    "shadows": {
+      "--shadow": {
+        "value": "0 18px 54px rgba(38, 54, 45, 0.09)",
+        "source": "app/globals.css"
+      }
+    },
+    "motion": {},
+    "density": "compact"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Keep source-region traceability visible throughout review",
+      "Distinguish matched, low-confidence, unanswered, and unmatched states",
+      "Remain usable as a stacked layout on small screens"
+    ],
+    "avoid": [
+      "Presenting AI output as teacher-confirmed",
+      "Decorative visuals that compete with scanned document content"
+    ]
+  },
+  "decisions": [
+    {
+      "decision": "Use a restrained sage and paper palette with compact three-panel review density.",
+      "reason": "The interface should feel calm and trustworthy while keeping source documents central."
+    }
+  ],
+  "evidence": [
+    {
+      "fact": "design.colorMode:light",
+      "source": "app/globals.css"
+    },
+    {
+      "fact": "design.tokens",
+      "source": "app/globals.css"
+    },
+    {
+      "fact": "project.stack:nextjs",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-08-26T08:19:20.824Z"
+}
