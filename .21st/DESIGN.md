@@ -38,6 +38,10 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 
 - `--shadow`: `0 18px 54px rgba(38, 54, 45, 0.09)` (app/globals.css)
 
+### Typography
+
+- Scenery headline: Instrument Serif Italic (self-hosted, SIL Open Font License)
+
 ## Constraints
 
 ### Must
@@ -53,4 +57,4 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 - Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.
 - Use an original wide pixel-art sunflower field, generated from the user's scenery and style references, as the active upload-screen background.
 - Reserve the first viewport exclusively for scenery and place the complete upload workflow in the second full section.
-- Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and a spacious mixed heavy-sans and italic-serif editorial headline on the scenery page.
+- Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and Instrument Serif Italic for all three elevated scenery-headline lines.

@@ -23,6 +23,14 @@
   --pixel-shadow: 5px 5px 0 var(--ink);
 }
 
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Italic.ttf") format("truetype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+}
+
 * { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100%; }
 body { color: var(--ink); background: var(--canvas); font-family: "Trebuchet MS", "Arial Rounded MT Bold", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -47,10 +55,10 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .ai-assistant-button:hover { color: #56305f; background: #f2dfbd; transform: translate(2px, 2px); box-shadow: 3px 4px 0 #ffe18a; }
 .ai-assistant-button:focus-visible { outline: 3px solid var(--paper); outline-offset: 5px; }
 .scenery-title { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; padding: 100px 30px 60px; text-align: center; pointer-events: none; }
-.scenery-title h1 { width: min(820px, 100%); margin: 0; display: grid; gap: clamp(14px, 1.8vw, 28px); color: #fff2b9; font-size: clamp(58px, 7.3vw, 112px); line-height: .84; text-shadow: 0 5px 20px rgba(30, 42, 60, .42); transform: translateY(-3%); }
-.scenery-title__upload, .scenery-title__level { display: block; font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif; font-style: normal; font-weight: 900; letter-spacing: -.065em; }
+.scenery-title h1 { width: min(820px, 100%); margin: 0; display: grid; gap: clamp(10px, 1.3vw, 20px); color: #fff2b9; font-family: "Instrument Serif", Georgia, "Times New Roman", serif; font-size: clamp(64px, 8vw, 122px); font-style: italic; font-weight: 400; line-height: .8; letter-spacing: -.045em; text-shadow: 0 5px 20px rgba(30, 42, 60, .42); transform: translateY(-7vh); }
+.scenery-title__upload, .scenery-title__level { display: block; font: inherit; }
 .scenery-title__upload { padding-right: .45em; text-align: left; }
-.scenery-title__match { position: relative; z-index: 1; display: block; padding-left: .34em; font-family: Georgia, "Times New Roman", serif; font-size: .9em; font-weight: 400; font-style: italic; letter-spacing: -.055em; text-align: center; }
+.scenery-title__match { position: relative; z-index: 1; display: block; padding-left: .34em; font: inherit; text-align: center; }
 .scenery-title__level { padding-left: .36em; text-align: right; }
 .upload-shell { position: relative; min-height: 100vh; overflow: hidden; background-color: var(--canvas); background-image: linear-gradient(90deg, rgba(140, 116, 205, .08) 1px, transparent 1px), linear-gradient(rgba(140, 116, 205, .08) 1px, transparent 1px); background-size: 24px 24px; }
 .upload-shell::before, .upload-shell::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
@@ -217,7 +225,7 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
   .scenery-wordmark { font-size: 23px; }
   .ai-assistant-button { min-height: 42px; padding: 0 13px; font-size: 10px; box-shadow: 3px 4px 0 #ffe18a; }
   .scenery-title { padding: 88px 18px 50px; }
-  .scenery-title h1 { gap: 12px; font-size: clamp(44px, 13.5vw, 64px); line-height: .86; }
+  .scenery-title h1 { gap: 10px; font-size: clamp(50px, 15vw, 70px); line-height: .82; transform: translateY(-5vh); }
   .scenery-title__upload, .scenery-title__match, .scenery-title__level { padding: 0; text-align: center; }
   .upload-hero { width: min(100% - 20px, 560px); padding: 45px 10px 34px; }
   .hero-copy { padding: 22px 16px 28px; }
