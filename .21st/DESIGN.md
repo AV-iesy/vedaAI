@@ -53,4 +53,4 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 - Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.
 - Use an original wide pixel-art sunflower field, generated from the user's scenery and style references, as the active upload-screen background.
 - Reserve the first viewport exclusively for scenery and place the complete upload workflow in the second full section.
-- Use a plain VedaAI text wordmark at the scenery page's top-left and a static sparkle symbol at the top-right that opens the upload section.
+- Use a plain VedaAI wordmark, a borderless custom purple AI sparkle control, and a centered cream serif "Upload, Match. Level up" title on the scenery page.

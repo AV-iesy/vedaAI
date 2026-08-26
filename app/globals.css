@@ -43,8 +43,13 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .scenery-page { position: relative; min-height: 100svh; background-color: #168ed0; background-image: url("/assets/pixel-sunflower-field.png"); background-size: cover; background-position: center center; }
 .scenery-header { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; padding: 24px 30px; }
 .scenery-wordmark { color: var(--paper); font-size: 28px; font-weight: 900; letter-spacing: -.06em; text-shadow: 3px 3px 0 rgba(53, 47, 82, .9); }
-.ai-symbol-button { width: 56px; height: 52px; display: inline-grid; place-items: center; color: #8e477d; border: 3px solid var(--ink); border-radius: 10px; background: rgba(255, 249, 210, .9); box-shadow: 4px 4px 0 rgba(53, 47, 82, .82); backdrop-filter: blur(4px); cursor: pointer; }
-.ai-symbol-button:hover { background: var(--yellow); }
+.ai-symbol-button { width: 64px; height: 64px; padding: 0; display: inline-grid; place-items: center; color: #a33f8c; border: 0; background: transparent; cursor: pointer; transition: transform .14s ease, color .14s ease; }
+.ai-symbol-button:hover { color: #c14ba4; transform: scale(1.06); }
+.ai-spark-symbol { width: 58px; height: 58px; overflow: visible; filter: drop-shadow(2px 2px 0 rgba(255, 249, 210, .9)); }
+.scenery-title { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; padding: 100px 30px 60px; text-align: center; pointer-events: none; }
+.scenery-title h1 { margin: 0; color: #fff5c9; font-family: Georgia, "Times New Roman", serif; font-size: clamp(70px, 9.3vw, 142px); font-weight: 700; line-height: .78; letter-spacing: -.075em; text-shadow: 0 5px 20px rgba(30, 42, 60, .38); transform: translateY(-4%); }
+.scenery-title h1 span, .scenery-title h1 em { display: block; }
+.scenery-title h1 em { margin-top: .22em; font-weight: 400; font-style: italic; }
 .upload-shell { position: relative; min-height: 100vh; overflow: hidden; background-color: var(--canvas); background-image: linear-gradient(90deg, rgba(140, 116, 205, .08) 1px, transparent 1px), linear-gradient(rgba(140, 116, 205, .08) 1px, transparent 1px); background-size: 24px 24px; }
 .upload-shell::before, .upload-shell::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
 .upload-shell::before { display: none; }
@@ -208,7 +213,10 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
   .scenery-page { background-position: center center; }
   .scenery-header { padding: 15px 16px; }
   .scenery-wordmark { font-size: 23px; }
-  .ai-symbol-button { width: 50px; height: 46px; box-shadow: 3px 3px 0 rgba(53, 47, 82, .82); }
+  .ai-symbol-button { width: 52px; height: 52px; }
+  .ai-spark-symbol { width: 47px; height: 47px; }
+  .scenery-title { padding: 88px 18px 50px; }
+  .scenery-title h1 { font-size: clamp(50px, 16vw, 72px); line-height: .84; }
   .upload-hero { width: min(100% - 20px, 560px); padding: 45px 10px 34px; }
   .hero-copy { padding: 22px 16px 28px; }
   .hero-kicker { margin-left: auto; margin-right: auto; }

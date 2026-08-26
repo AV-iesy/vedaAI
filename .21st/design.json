@@ -89,8 +89,8 @@
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     },
     {
-      "decision": "Use a plain VedaAI text wordmark at the scenery page's top-left and a static sparkle symbol at the top-right that opens the upload section.",
-      "reason": "The user requested a logo-free, animation-free header with minimal text and a single AI symbol."
+      "decision": "Use a plain VedaAI wordmark, a borderless custom purple AI sparkle control, and a centered cream serif 'Upload, Match. Level up' title on the scenery page.",
+      "reason": "The user selected the supplied sparkle and editorial headline references while keeping the first-page chrome minimal."
     }
   ],
   "evidence": [
