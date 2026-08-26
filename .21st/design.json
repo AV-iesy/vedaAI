@@ -14,7 +14,8 @@
     ],
     "components": [],
     "assets": [
-      "public/assets/joyful-train-sky.png"
+      "public/assets/joyful-train-sky.png",
+      "public/assets/pixel-sunflower-field.png"
     ],
     "instructions": []
   },
@@ -80,8 +81,8 @@
       "reason": "The user selected a playful anime/pixelated direction while the assessment workflow still needs clear status differentiation and source-document focus."
     },
     {
-      "decision": "Use the user-supplied bright anime train landscape as the upload-screen background with a responsive crop and translucent readability surfaces.",
-      "reason": "The user selected the peaceful, joyful scene to make the student-facing entry experience more inviting."
+      "decision": "Use an original wide pixel-art sunflower field, generated from the user's scenery and style references, as the active upload-screen background.",
+      "reason": "The user selected a bright sunflower scene and a painterly 16-bit landscape treatment for the student-facing first page."
     }
   ],
   "evidence": [

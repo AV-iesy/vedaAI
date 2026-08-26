@@ -39,7 +39,7 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .icon-button:hover:not(:disabled) { background: var(--yellow-soft); transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
 .icon-button:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
 
-.upload-shell { position: relative; min-height: 100vh; overflow: hidden; background-color: #147fbd; background-image: url("/assets/joyful-train-sky.png"); background-size: cover; background-position: center 58%; background-attachment: fixed; }
+.upload-shell { position: relative; min-height: 100vh; overflow: hidden; background-color: #168ed0; background-image: url("/assets/pixel-sunflower-field.png"); background-size: cover; background-position: center center; background-attachment: fixed; }
 .upload-shell::before, .upload-shell::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
 .upload-shell::before { inset: 0; background: rgba(255, 255, 255, .06); }
 .upload-shell::after { display: none; }
