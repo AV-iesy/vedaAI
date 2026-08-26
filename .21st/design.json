@@ -83,6 +83,10 @@
     {
       "decision": "Use an original wide pixel-art sunflower field, generated from the user's scenery and style references, as the active upload-screen background.",
       "reason": "The user selected a bright sunflower scene and a painterly 16-bit landscape treatment for the student-facing first page."
+    },
+    {
+      "decision": "Reserve the first viewport exclusively for the sunflower scenery and move the complete upload experience to a second full section below it.",
+      "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     }
   ],
   "evidence": [

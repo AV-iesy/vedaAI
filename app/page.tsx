@@ -388,44 +388,48 @@ export default function Home() {
   }
 
   return (
-    <main className="upload-shell">
-      <header className="site-header">
-        <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
-      </header>
+    <main className="landing-shell">
+      <section className="scenery-page" aria-label="Pixel-art sunflower field" />
 
-      <section className="upload-hero">
-        <div className="hero-copy">
-          <div className="hero-kicker"><Sparkles size={14} /> Your assessment sidekick</div>
-          <h1>Upload. Match.<br /><em>Level up!</em></h1>
-          <p>Drop in a question paper and handwritten answer sheet. Veda finds every response and maps it back to the right question.</p>
-        </div>
-      </section>
+      <section className="upload-shell">
+        <header className="site-header">
+          <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
+        </header>
 
-      <section className="upload-workspace">
-        <div className="upload-grid">
-          <UploadCard kind="question_paper" title="Question paper" description="The original assessment and marking scale" file={files.question_paper} onFile={updateFile} />
-          <UploadCard kind="answer_sheet" title="Student answer sheet" description="One student's handwritten responses" file={files.answer_sheet} onFile={updateFile} />
-        </div>
-
-        {submission ? <PipelineProgress submission={submission} /> : (
-          <div className="start-row">
-            <div className="privacy-note"><ShieldCheck size={18} /><span><strong>Private by design</strong><small>Files are used only for this assessment review.</small></span></div>
-            <button className="button button--primary" disabled={!ready || working} onClick={processSubmission}>
-              {working ? <LoaderCircle className="spin" size={17} /> : <Sparkles size={17} />}
-              Start mapping quest
-              <ArrowRight size={17} />
-            </button>
+        <section className="upload-hero">
+          <div className="hero-copy">
+            <div className="hero-kicker"><Sparkles size={14} /> Your assessment sidekick</div>
+            <h1>Upload. Match.<br /><em>Level up!</em></h1>
+            <p>Drop in a question paper and handwritten answer sheet. Veda finds every response and maps it back to the right question.</p>
           </div>
-        )}
-        {error && <div className="error-banner"><CircleAlert size={16} />{error}</div>}
-      </section>
+        </section>
 
-      <footer className="upload-footer">
-        <span>QUEST PATH</span>
-        <div><span>01</span> Find questions</div>
-        <div><span>02</span> Read answers</div>
-        <div><span>03</span> Verify matches</div>
-      </footer>
+        <section className="upload-workspace">
+          <div className="upload-grid">
+            <UploadCard kind="question_paper" title="Question paper" description="The original assessment and marking scale" file={files.question_paper} onFile={updateFile} />
+            <UploadCard kind="answer_sheet" title="Student answer sheet" description="One student's handwritten responses" file={files.answer_sheet} onFile={updateFile} />
+          </div>
+
+          {submission ? <PipelineProgress submission={submission} /> : (
+            <div className="start-row">
+              <div className="privacy-note"><ShieldCheck size={18} /><span><strong>Private by design</strong><small>Files are used only for this assessment review.</small></span></div>
+              <button className="button button--primary" disabled={!ready || working} onClick={processSubmission}>
+                {working ? <LoaderCircle className="spin" size={17} /> : <Sparkles size={17} />}
+                Start mapping quest
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          )}
+          {error && <div className="error-banner"><CircleAlert size={16} />{error}</div>}
+        </section>
+
+        <footer className="upload-footer">
+          <span>QUEST PATH</span>
+          <div><span>01</span> Find questions</div>
+          <div><span>02</span> Read answers</div>
+          <div><span>03</span> Verify matches</div>
+        </footer>
+      </section>
     </main>
   );
 }
