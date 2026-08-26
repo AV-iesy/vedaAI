@@ -83,6 +83,7 @@ function UploadCard({
           <h2>{title}</h2>
           <p>{description}</p>
         </div>
+        <span className="quest-index">{kind === "question_paper" ? "01" : "02"}</span>
       </div>
 
       {file ? (
@@ -158,6 +159,29 @@ function StatusBadge({ status }: { status: MappingStatus }) {
   );
 }
 
+function PixelMascot({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={`pixel-mascot ${compact ? "pixel-mascot--compact" : ""}`} aria-hidden="true">
+      <div className="pixel-spark pixel-spark--one" />
+      <div className="pixel-spark pixel-spark--two" />
+      <div className="pixel-speech">Ready!</div>
+      <div className="pixel-character">
+        <span className="pixel-ear pixel-ear--left" />
+        <span className="pixel-ear pixel-ear--right" />
+        <span className="pixel-hair pixel-hair--left" />
+        <span className="pixel-hair pixel-hair--right" />
+        <span className="pixel-eye pixel-eye--left" />
+        <span className="pixel-eye pixel-eye--right" />
+        <span className="pixel-cheek pixel-cheek--left" />
+        <span className="pixel-cheek pixel-cheek--right" />
+        <span className="pixel-mouth" />
+        <span className="pixel-collar" />
+      </div>
+      <div className="pixel-shadow" />
+    </div>
+  );
+}
+
 function AnswerPage({
   page,
   active,
@@ -223,7 +247,7 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
   return (
     <main className="review-shell">
       <header className="review-header">
-        <div className="brand"><span><GraduationCap size={21} /></span>Veda AI</div>
+        <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
         <div className="submission-name">
           <strong>Science assessment</strong>
           <span>Processed just now · Demo extraction provider</span>
@@ -240,7 +264,7 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
         <div className="summary-separator" />
         <div><strong>{mappings.filter((item) => item.status === "low_confidence").length}</strong><span>needs a quick check</span></div>
         <div><strong>{result.unmatchedAnswers?.length ?? 0}</strong><span>unmatched note</span></div>
-        <div className="summary-confidence"><ShieldCheck size={15} /> Source regions preserved</div>
+        <div className="summary-confidence"><ShieldCheck size={15} /> Source regions preserved <span className="pixel-star">✦</span></div>
       </section>
 
       <div className="review-grid">
@@ -390,14 +414,25 @@ export default function Home() {
   return (
     <main className="upload-shell">
       <header className="site-header">
-        <div className="brand"><span><GraduationCap size={21} /></span>Veda AI</div>
-        <div className="header-meta"><span className="demo-pill">DEMO WORKSPACE</span><button className="icon-button"><ChevronDown size={17} /></button></div>
+        <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
+        <div className="header-meta"><span className="demo-pill">DEMO MODE</span><button className="icon-button" aria-label="Open workspace menu"><ChevronDown size={17} /></button></div>
       </header>
 
       <section className="upload-hero">
-        <div className="hero-kicker"><Sparkles size={14} /> Assessment intelligence</div>
-        <h1>Turn a stack of papers into<br /><em>a clear review.</em></h1>
-        <p>Upload one question paper and one handwritten answer sheet. Veda maps every response back to its source, ready for your review.</p>
+        <div className="hero-copy">
+          <div className="hero-kicker"><Sparkles size={14} /> Your assessment sidekick</div>
+          <h1>Upload. Match.<br /><em>Level up!</em></h1>
+          <p>Drop in a question paper and handwritten answer sheet. Veda finds every response and maps it back to the right question.</p>
+          <div className="hero-tags">
+            <span>✦ Pixel-perfect regions</span>
+            <span>♥ Teacher in control</span>
+          </div>
+        </div>
+        <div className="hero-art">
+          <PixelMascot />
+          <div className="pixel-card pixel-card--question"><FileText size={18} /><span>Q. 04</span><b>+4 XP</b></div>
+          <div className="pixel-card pixel-card--match"><Check size={17} /><span>MATCH!</span></div>
+        </div>
       </section>
 
       <section className="upload-workspace">
@@ -411,7 +446,7 @@ export default function Home() {
             <div className="privacy-note"><ShieldCheck size={18} /><span><strong>Private by design</strong><small>Files are used only for this assessment review.</small></span></div>
             <button className="button button--primary" disabled={!ready || working} onClick={processSubmission}>
               {working ? <LoaderCircle className="spin" size={17} /> : <Sparkles size={17} />}
-              Extract and map answers
+              Start mapping quest
               <ArrowRight size={17} />
             </button>
           </div>
@@ -420,10 +455,10 @@ export default function Home() {
       </section>
 
       <footer className="upload-footer">
-        <span>How it works</span>
-        <div><span>01</span> Locate questions</div>
-        <div><span>02</span> Read answer regions</div>
-        <div><span>03</span> Map with confidence</div>
+        <span>QUEST PATH</span>
+        <div><span>01</span> Find questions</div>
+        <div><span>02</span> Read answers</div>
+        <div><span>03</span> Verify matches</div>
       </footer>
     </main>
   );

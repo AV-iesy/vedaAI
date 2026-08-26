@@ -27,7 +27,12 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 
 ### Colors
 
-- `--muted`: `#69716c` (app/globals.css)
+- `--muted`: `#716b89` (app/globals.css)
+- `--lavender`: `#c9b8ff` (app/globals.css)
+- `--pink`: `#ffb8d2` (app/globals.css)
+- `--mint`: `#aee8cf` (app/globals.css)
+- `--sky`: `#addff5` (app/globals.css)
+- `--yellow`: `#ffe995` (app/globals.css)
 
 ### Shadows
 
@@ -45,5 +50,4 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 
 ## Decisions
 
-- None recorded
-
+- Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.

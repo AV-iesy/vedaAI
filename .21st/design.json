@@ -20,7 +20,27 @@
     "colorMode": "light",
     "colors": {
       "--muted": {
-        "value": "#69716c",
+        "value": "#716b89",
+        "source": "app/globals.css"
+      },
+      "--lavender": {
+        "value": "#c9b8ff",
+        "source": "app/globals.css"
+      },
+      "--pink": {
+        "value": "#ffb8d2",
+        "source": "app/globals.css"
+      },
+      "--mint": {
+        "value": "#aee8cf",
+        "source": "app/globals.css"
+      },
+      "--sky": {
+        "value": "#addff5",
+        "source": "app/globals.css"
+      },
+      "--yellow": {
+        "value": "#ffe995",
         "source": "app/globals.css"
       }
     },
@@ -54,8 +74,8 @@
   },
   "decisions": [
     {
-      "decision": "Use a restrained sage and paper palette with compact three-panel review density.",
-      "reason": "The interface should feel calm and trustworthy while keeping source documents central."
+      "decision": "Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.",
+      "reason": "The user selected a playful anime/pixelated direction while the assessment workflow still needs clear status differentiation and source-document focus."
     }
   ],
   "evidence": [
