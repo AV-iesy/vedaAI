@@ -89,8 +89,8 @@
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     },
     {
-      "decision": "Use a plain VedaAI wordmark, a yellow pixel-style AI assistant button with a purple sparkle and pink hover state, and a centered cream serif title on the scenery page.",
-      "reason": "The user requested a clearly labeled, interactive assistant entry point while retaining the pixel-art direction."
+      "decision": "Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button, and a mixed heavy-sans and italic-serif editorial headline on the scenery page.",
+      "reason": "The user selected a compact outlined button reference and an expressive, layered typography reference for the first viewport."
     }
   ],
   "evidence": [

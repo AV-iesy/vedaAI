@@ -158,16 +158,6 @@ function StatusBadge({ status }: { status: MappingStatus }) {
   );
 }
 
-function AiSparkSymbol() {
-  return (
-    <svg className="ai-spark-symbol" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <path d="M30 5C33 5 33 18 38 23C43 27 57 27 57 30C57 34 43 34 38 39C33 44 33 58 30 58C26 58 26 44 21 39C16 34 4 34 4 30C4 27 16 27 21 23C26 18 26 5 30 5Z" stroke="currentColor" strokeWidth="5" strokeLinejoin="round" />
-      <path d="M49 8V20M43 14H55" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="9" cy="48" r="4.5" fill="currentColor" />
-    </svg>
-  );
-}
-
 function AnswerPage({
   page,
   active,
@@ -411,12 +401,15 @@ export default function Home() {
         <header className="scenery-header">
           <span className="scenery-wordmark">VedaAI</span>
           <button className="ai-assistant-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI assistant">
-            <AiSparkSymbol />
-            <span>AI assistant</span>
+            AI assistant
           </button>
         </header>
         <div className="scenery-title">
-          <h1><span>Upload, Match.</span><em>Level up</em></h1>
+          <h1>
+            <span className="scenery-title__upload">Upload,</span>
+            <em className="scenery-title__match">Match,</em>
+            <span className="scenery-title__level">Level up</span>
+          </h1>
         </div>
       </section>
 
