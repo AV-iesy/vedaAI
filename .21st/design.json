@@ -13,7 +13,9 @@
       "app/globals.css"
     ],
     "components": [],
-    "assets": [],
+    "assets": [
+      "public/assets/joyful-train-sky.png"
+    ],
     "instructions": []
   },
   "design": {
@@ -76,6 +78,10 @@
     {
       "decision": "Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.",
       "reason": "The user selected a playful anime/pixelated direction while the assessment workflow still needs clear status differentiation and source-document focus."
+    },
+    {
+      "decision": "Use the user-supplied bright anime train landscape as the upload-screen background with a responsive crop and translucent readability surfaces.",
+      "reason": "The user selected the peaceful, joyful scene to make the student-facing entry experience more inviting."
     }
   ],
   "evidence": [

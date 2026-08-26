@@ -15,7 +15,7 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 
 - Tokens: app/globals.css
 - Components: None detected
-- Assets: None detected
+- Assets: public/assets/joyful-train-sky.png
 - Instructions: None detected
 
 ## Components
@@ -51,3 +51,4 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 ## Decisions
 
 - Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.
+- Use the user-supplied bright anime train landscape as the upload-screen background with responsive cropping and translucent readability surfaces.
