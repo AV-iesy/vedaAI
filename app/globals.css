@@ -43,9 +43,9 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
 .scenery-page { position: relative; min-height: 100svh; background-color: #168ed0; background-image: url("/assets/pixel-sunflower-field.png"); background-size: cover; background-position: center center; }
 .scenery-header { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; padding: 24px 30px; }
 .scenery-wordmark { color: var(--paper); font-size: 28px; font-weight: 900; letter-spacing: -.06em; text-shadow: 3px 3px 0 rgba(53, 47, 82, .9); }
-.ai-symbol-button { width: 64px; height: 64px; padding: 0; display: inline-grid; place-items: center; color: #a33f8c; border: 0; background: transparent; cursor: pointer; transition: transform .14s ease, color .14s ease; }
-.ai-symbol-button:hover { color: #c14ba4; transform: scale(1.06); }
-.ai-spark-symbol { width: 58px; height: 58px; overflow: visible; filter: drop-shadow(2px 2px 0 rgba(255, 249, 210, .9)); }
+.ai-assistant-button { min-height: 52px; padding: 0 15px 0 10px; display: inline-flex; align-items: center; gap: 7px; color: var(--ink); border: 3px solid var(--ink); border-radius: 4px; background: var(--yellow); box-shadow: 5px 5px 0 rgba(53, 47, 82, .88); font-family: "Courier New", monospace; font-size: 12px; font-weight: 900; letter-spacing: -.03em; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease; }
+.ai-assistant-button:hover { color: #56305f; background: var(--pink); transform: translate(2px, 2px); box-shadow: 3px 3px 0 rgba(53, 47, 82, .88); }
+.ai-spark-symbol { width: 31px; height: 31px; flex: none; overflow: visible; color: #a33f8c; }
 .scenery-title { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; padding: 100px 30px 60px; text-align: center; pointer-events: none; }
 .scenery-title h1 { margin: 0; color: #fff5c9; font-family: Georgia, "Times New Roman", serif; font-size: clamp(70px, 9.3vw, 142px); font-weight: 700; line-height: .78; letter-spacing: -.075em; text-shadow: 0 5px 20px rgba(30, 42, 60, .38); transform: translateY(-4%); }
 .scenery-title h1 span, .scenery-title h1 em { display: block; }
@@ -213,8 +213,8 @@ button:focus-visible, input:focus-visible, label:focus-within { outline: 3px sol
   .scenery-page { background-position: center center; }
   .scenery-header { padding: 15px 16px; }
   .scenery-wordmark { font-size: 23px; }
-  .ai-symbol-button { width: 52px; height: 52px; }
-  .ai-spark-symbol { width: 47px; height: 47px; }
+  .ai-assistant-button { min-height: 46px; padding: 0 11px 0 8px; font-size: 10px; box-shadow: 3px 3px 0 rgba(53, 47, 82, .88); }
+  .ai-spark-symbol { width: 27px; height: 27px; }
   .scenery-title { padding: 88px 18px 50px; }
   .scenery-title h1 { font-size: clamp(50px, 16vw, 72px); line-height: .84; }
   .upload-hero { width: min(100% - 20px, 560px); padding: 45px 10px 34px; }

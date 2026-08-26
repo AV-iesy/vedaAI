@@ -410,8 +410,9 @@ export default function Home() {
       <section className="scenery-page" aria-label="Pixel-art sunflower field">
         <header className="scenery-header">
           <span className="scenery-wordmark">VedaAI</span>
-          <button className="ai-symbol-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI upload workspace">
+          <button className="ai-assistant-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI assistant">
             <AiSparkSymbol />
+            <span>AI assistant</span>
           </button>
         </header>
         <div className="scenery-title">
