@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -400,20 +399,9 @@ export default function Home() {
     <main className="landing-shell">
       <section className="scenery-page" aria-label="Pixel-art sunflower field">
         <header className="scenery-header">
-          <Image
-            className="scenery-logo"
-            src="/assets/veda-ai-logo.png"
-            alt="VedaAI"
-            width={278}
-            height={124}
-            priority
-          />
-          <button className="ai-glitter-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI upload workspace">
-            <span className="ai-glitter ai-glitter--one">✦</span>
-            <span className="ai-glitter ai-glitter--two">✦</span>
-            <span className="ai-glitter ai-glitter--three">✦</span>
-            <span className="ai-glyph">AI</span>
-            <Sparkles className="ai-spark-icon" size={17} aria-hidden="true" />
+          <span className="scenery-wordmark">VedaAI</span>
+          <button className="ai-symbol-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI upload workspace">
+            <Sparkles size={24} aria-hidden="true" />
           </button>
         </header>
       </section>

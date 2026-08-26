@@ -15,8 +15,7 @@
     "components": [],
     "assets": [
       "public/assets/joyful-train-sky.png",
-      "public/assets/pixel-sunflower-field.png",
-      "public/assets/veda-ai-logo.png"
+      "public/assets/pixel-sunflower-field.png"
     ],
     "instructions": []
   },
@@ -90,8 +89,8 @@
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     },
     {
-      "decision": "Place the supplied VedaAI logo at the scenery page's top-left and a glittering AI control at the top-right that opens the upload section.",
-      "reason": "The user selected these two minimal navigation elements for the otherwise scenery-led first viewport."
+      "decision": "Use a plain VedaAI text wordmark at the scenery page's top-left and a static sparkle symbol at the top-right that opens the upload section.",
+      "reason": "The user requested a logo-free, animation-free header with minimal text and a single AI symbol."
     }
   ],
   "evidence": [
