@@ -21,6 +21,8 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { ChangeEvent, DragEvent, useMemo, useState } from "react";
+import { useUploadThing } from "@/lib/uploadthing";
+import type { GradingResult, SubmissionUploads } from "@/lib/extraction-types";
 import type {
   FileKind,
   MappingStatus,
@@ -107,7 +109,7 @@ function UploadCard({
         >
           <UploadCloud size={26} />
           <p><strong>Drop file here</strong> or <label htmlFor={kind}>browse</label></p>
-          <small>PDF, JPG or PNG · maximum 20 MB</small>
+          <small>PDF up to 8 MB · JPG or PNG up to 4 MB</small>
           <input
             id={kind}
             type="file"
@@ -161,32 +163,23 @@ function StatusBadge({ status }: { status: MappingStatus }) {
 function AnswerPage({
   page,
   active,
+  pageCount,
 }: {
   page: number;
   active: QuestionMapping | null;
+  pageCount: number;
 }) {
   const regions = active?.regions.filter((region) => region.page === page) ?? [];
 
   return (
     <article className="answer-page">
       <div className="paper-meta">
-        <span>SCIENCE · TERM ASSESSMENT</span>
-        <span>Page {page} of 2</span>
+        <span>EXTRACTED ANSWER</span>
+        <span>Page {page} of {pageCount}</span>
       </div>
-      {page === 1 ? (
-        <div className="handwriting">
-          <p><b>1.</b> Photosynthesis is the process by which green plants use sunlight to prepare food from carbon dioxide and water.</p>
-          <p className="equation">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</p>
-          <p><b>2 a.</b> Chlorophyll absorbs light energy from the sun for the plant.</p>
-          <p><b>4.</b> Aerobic respiration uses oxygen and releases more energy. Anaerobic respiration happens without oxygen and releases less energy...</p>
-        </div>
-      ) : (
-        <div className="handwriting">
-          <p><b>2(b).</b> Glucose and oxygen.</p>
-          <p><b>4. continued</b> It produces lactic acid in muscles, while aerobic respiration produces carbon dioxide and water.</p>
-          <p className="rough">Rough: 6 × 12 = 72</p>
-        </div>
-      )}
+      <div className="handwriting">
+        <p>{active?.answerText ?? "No answer was detected for this question."}</p>
+      </div>
       {regions.map((region, index) => (
         <span
           className="highlight-region"
@@ -203,21 +196,112 @@ function AnswerPage({
   );
 }
 
-function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onReset: () => void }) {
-  const mappings = result.mappings ?? [];
+function ReviewWorkspace({
+  result,
+  uploads,
+  onReset,
+}: {
+  result: SubmissionResult;
+  uploads: SubmissionUploads | null;
+  onReset: () => void;
+}) {
+  const [reviewResult, setReviewResult] = useState(result);
+  const mappings = reviewResult.mappings ?? [];
   const [activeId, setActiveId] = useState(mappings[0]?.id ?? "");
   const [page, setPage] = useState(mappings[0]?.regions[0]?.page ?? 1);
   const [zoom, setZoom] = useState(90);
   const [query, setQuery] = useState("");
+  const [grading, setGrading] = useState(false);
+  const [gradingResult, setGradingResult] = useState<GradingResult | null>(null);
+  const [actionError, setActionError] = useState("");
+  const [actionWorking, setActionWorking] = useState(false);
+  const [remapOpen, setRemapOpen] = useState(false);
+  const [remapSource, setRemapSource] = useState("unanswered:");
   const active = mappings.find((mapping) => mapping.id === activeId) ?? null;
+  const pageCount = Math.max(1, ...mappings.flatMap((mapping) => mapping.regions.map((region) => region.page)));
   const visibleMappings = mappings.filter((mapping) =>
     `${mapping.displayNumber} ${mapping.questionText}`.toLowerCase().includes(query.toLowerCase()),
   );
   const matchedCount = mappings.filter((mapping) => mapping.status !== "unanswered").length;
+  const activeGrade = gradingResult?.evaluations.find((evaluation) => (
+    evaluation.question_number.toLowerCase().replace(/[^a-z0-9]/gu, "")
+    === active?.displayNumber.toLowerCase().replace(/[^a-z0-9]/gu, "")
+  ));
+  const answerCandidates = [
+    { value: "unanswered:", label: "Mark this question unanswered" },
+    ...mappings
+      .filter((mapping) => mapping.answerText)
+      .map((mapping) => ({
+        value: `mapping:${mapping.id}`,
+        label: `Q${mapping.displayNumber} · ${mapping.answerText?.slice(0, 70)}`,
+      })),
+    ...(reviewResult.unmatchedAnswers ?? []).map((answer) => ({
+      value: `unmatched:${answer.id}`,
+      label: `Unmatched · ${answer.text.slice(0, 70)}`,
+    })),
+  ];
 
   function selectMapping(mapping: QuestionMapping) {
     setActiveId(mapping.id);
     if (mapping.regions[0]) setPage(mapping.regions[0].page);
+    setRemapOpen(false);
+    setActionError("");
+  }
+
+  async function gradeAnswers() {
+    if (!uploads) {
+      setActionError("The upload receipts are no longer available. Start a new submission to grade it.");
+      return;
+    }
+    setGrading(true);
+    setActionError("");
+    try {
+      const response = await fetch("/api/grade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(uploads),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error ?? "Grading failed.");
+      setGradingResult(payload.data);
+    } catch (caught) {
+      setActionError(caught instanceof Error ? caught.message : "Grading failed.");
+    } finally {
+      setGrading(false);
+    }
+  }
+
+  async function updateMapping(body: Record<string, string | undefined>) {
+    if (!active) return;
+    setActionWorking(true);
+    setActionError("");
+    try {
+      const response = await fetch(`/api/submissions/${reviewResult.id}/mappings/${active.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error ?? "The mapping could not be updated.");
+      setReviewResult(payload);
+      if (body.action === "remap") setGradingResult(null);
+      const updatedActive = payload.mappings?.find((mapping: QuestionMapping) => mapping.id === active.id);
+      if (updatedActive?.regions[0]) setPage(updatedActive.regions[0].page);
+      setRemapOpen(false);
+    } catch (caught) {
+      setActionError(caught instanceof Error ? caught.message : "The mapping could not be updated.");
+    } finally {
+      setActionWorking(false);
+    }
+  }
+
+  async function applyRemap() {
+    const [sourceType, ...sourceIdParts] = remapSource.split(":");
+    await updateMapping({
+      action: "remap",
+      sourceType,
+      sourceId: sourceIdParts.join(":") || undefined,
+    });
   }
 
   return (
@@ -226,11 +310,14 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
         <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
         <div className="submission-name">
           <strong>Science assessment</strong>
-          <span>Processed just now · Demo extraction provider</span>
+          <span>Processed just now · Gemini 2.5 Flash</span>
         </div>
         <div className="review-header__actions">
           <button className="button button--ghost" onClick={onReset}><RotateCcw size={15} /> New submission</button>
-          <button className="button button--dark"><Sparkles size={15} /> Grade answers</button>
+          <button className="button button--dark" disabled={grading} onClick={gradeAnswers}>
+            {grading ? <LoaderCircle className="spin" size={15} /> : gradingResult ? <Check size={15} /> : <Sparkles size={15} />}
+            {grading ? "Grading…" : gradingResult ? "Graded" : "Grade answers"}
+          </button>
           <button className="icon-button" aria-label="More options"><MoreHorizontal size={19} /></button>
         </div>
       </header>
@@ -239,7 +326,8 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
         <div><span className="summary-score">{matchedCount}/{mappings.length}</span><span>answers located</span></div>
         <div className="summary-separator" />
         <div><strong>{mappings.filter((item) => item.status === "low_confidence").length}</strong><span>needs a quick check</span></div>
-        <div><strong>{result.unmatchedAnswers?.length ?? 0}</strong><span>unmatched note</span></div>
+        <div><strong>{reviewResult.unmatchedAnswers?.length ?? 0}</strong><span>unmatched note</span></div>
+        {gradingResult && <div><strong>{gradingResult.overall_score}/{gradingResult.total_marks}</strong><span>AI-suggested score</span></div>}
         <div className="summary-confidence"><ShieldCheck size={15} /> Source regions preserved <span className="pixel-star">✦</span></div>
       </section>
 
@@ -269,11 +357,16 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
               </button>
             ))}
           </div>
-          <div className="unmatched-card">
-            <span><CircleAlert size={17} /></span>
-            <div><strong>1 unmatched note</strong><small>Review rough work from page 2</small></div>
-            <ArrowRight size={16} />
-          </div>
+          {(reviewResult.unmatchedAnswers?.length ?? 0) > 0 && (
+            <div className="unmatched-card">
+              <span><CircleAlert size={17} /></span>
+              <div>
+                <strong>{reviewResult.unmatchedAnswers?.length} unmatched {reviewResult.unmatchedAnswers?.length === 1 ? "answer" : "answers"}</strong>
+                <small>Review content that could not be mapped safely</small>
+              </div>
+              <ArrowRight size={16} />
+            </div>
+          )}
         </aside>
 
         <section className="document-panel">
@@ -291,13 +384,13 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
           </div>
           <div className="page-viewport">
             <div className="paper-wrap" style={{ width: `${zoom}%` }}>
-              <AnswerPage page={page} active={active} />
+              <AnswerPage page={page} active={active} pageCount={pageCount} />
             </div>
           </div>
           <div className="page-nav">
-            <button className="icon-button" disabled={page === 1} onClick={() => setPage(1)} aria-label="Previous page"><ArrowLeft size={17} /></button>
-            <span>Page <strong>{page}</strong> of 2</span>
-            <button className="icon-button" disabled={page === 2} onClick={() => setPage(2)} aria-label="Next page"><ArrowRight size={17} /></button>
+            <button className="icon-button" disabled={page === 1} onClick={() => setPage(Math.max(1, page - 1))} aria-label="Previous page"><ArrowLeft size={17} /></button>
+            <span>Page <strong>{page}</strong> of {pageCount}</span>
+            <button className="icon-button" disabled={page >= pageCount} onClick={() => setPage(Math.min(pageCount, page + 1))} aria-label="Next page"><ArrowRight size={17} /></button>
           </div>
         </section>
 
@@ -313,10 +406,20 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
                   <small>{active.status === "low_confidence" ? "Semantic match — teacher review recommended" : "Label and content agree"}</small>
                 </div>
               )}
+              {active.teacherConfirmed && (
+                <div className="teacher-confirmed"><CheckCircle2 size={16} /><span><strong>Teacher confirmed</strong><small>This answer mapping has been reviewed.</small></span></div>
+              )}
               <div className="detail-section">
                 <span className="detail-label">QUESTION</span>
                 <p>{active.questionText}</p>
               </div>
+              {activeGrade && (
+                <div className="grade-result">
+                  <div><span>AI-SUGGESTED GRADE</span><strong>{activeGrade.marks_awarded}/{activeGrade.max_marks}</strong></div>
+                  <p>{activeGrade.feedback}</p>
+                  <small>Review and confirm before treating this score as final.</small>
+                </div>
+              )}
               <div className="detail-section">
                 <span className="detail-label">EXTRACTED ANSWER</span>
                 <p>{active.answerText ?? "No answer was detected for this question."}</p>
@@ -324,9 +427,36 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
               {active.regions.length > 1 && (
                 <div className="multi-page-note"><FileText size={16} /><span><strong>Multi-page answer</strong><small>Regions found on pages {active.regions.map((region) => region.page).join(" and ")}</small></span></div>
               )}
+              {actionError && <div className="action-message action-message--error"><CircleAlert size={14} />{actionError}</div>}
+              {remapOpen && (
+                <div className="remap-panel">
+                  <label htmlFor="remap-answer">Choose the answer for Q{active.displayNumber}</label>
+                  <select id="remap-answer" value={remapSource} onChange={(event) => setRemapSource(event.target.value)}>
+                    {answerCandidates.map((candidate) => <option key={candidate.value} value={candidate.value}>{candidate.label}</option>)}
+                  </select>
+                  <div>
+                    <button className="button button--outline" onClick={() => setRemapOpen(false)}>Cancel</button>
+                    <button className="button button--dark" disabled={actionWorking} onClick={applyRemap}>
+                      {actionWorking ? <LoaderCircle className="spin" size={14} /> : <Check size={14} />} Apply match
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="detail-actions">
-                <button className="button button--outline">Change match</button>
-                <button className="button button--dark">Confirm mapping</button>
+                <button
+                  className="button button--outline"
+                  disabled={actionWorking}
+                  onClick={() => {
+                    setRemapSource(active.answerText ? `mapping:${active.id}` : "unanswered:");
+                    setRemapOpen((open) => !open);
+                  }}
+                >
+                  Change match
+                </button>
+                <button className="button button--dark" disabled={actionWorking || active.teacherConfirmed} onClick={() => updateMapping({ action: "confirm" })}>
+                  {actionWorking ? <LoaderCircle className="spin" size={14} /> : <Check size={14} />}
+                  {active.teacherConfirmed ? "Mapping confirmed" : "Confirm mapping"}
+                </button>
               </div>
             </>
           ) : null}
@@ -339,12 +469,26 @@ function ReviewWorkspace({ result, onReset }: { result: SubmissionResult; onRese
 export default function Home() {
   const [files, setFiles] = useState<Record<FileKind, File | null>>({ question_paper: null, answer_sheet: null });
   const [submission, setSubmission] = useState<SubmissionResult | null>(null);
+  const [uploadedDocuments, setUploadedDocuments] = useState<SubmissionUploads | null>(null);
   const [error, setError] = useState("");
   const [working, setWorking] = useState(false);
   const ready = useMemo(() => Boolean(files.question_paper && files.answer_sheet), [files]);
+  const { startUpload } = useUploadThing("paperUploader");
 
   function updateFile(kind: FileKind, file: File | null) {
     setError("");
+    if (file) {
+      const accepted = ["application/pdf", "image/jpeg", "image/png"].includes(file.type);
+      const limit = file.type === "application/pdf" ? 8 * 1024 * 1024 : 4 * 1024 * 1024;
+      if (!accepted) {
+        setError(`${file.name} must be a PDF, JPG, or PNG.`);
+        return;
+      }
+      if (file.size > limit) {
+        setError(`${file.name} exceeds the ${file.type === "application/pdf" ? "8" : "4"} MB limit.`);
+        return;
+      }
+    }
     setFiles((current) => ({ ...current, [kind]: file }));
   }
 
@@ -354,10 +498,19 @@ export default function Home() {
     setError("");
 
     try {
-      const body = new FormData();
-      body.append("question_paper", files.question_paper);
-      body.append("answer_sheet", files.answer_sheet);
-      const createResponse = await fetch("/api/submissions", { method: "POST", body });
+      const questionUpload = await startUpload([files.question_paper]);
+      const answerUpload = await startUpload([files.answer_sheet]);
+      const questionPaper = questionUpload?.[0]?.serverData;
+      const answerSheet = answerUpload?.[0]?.serverData;
+      if (!questionPaper || !answerSheet) throw new Error("UploadThing did not return both uploaded files.");
+      const completedUploads = { questionPaper, answerSheet } as SubmissionUploads;
+      setUploadedDocuments(completedUploads);
+
+      const createResponse = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(completedUploads),
+      });
       const created = await createResponse.json();
 
       if (!createResponse.ok) throw new Error(created.errors?.join(" ") ?? "Upload failed.");
@@ -366,8 +519,9 @@ export default function Home() {
       let current: SubmissionResult = created;
       while (current.stage !== "done") {
         const response = await fetch(`/api/submissions/${created.id}/process`, { method: "POST" });
-        if (!response.ok) throw new Error("A processing stage failed. Please try again.");
-        current = await response.json();
+        const processed = await response.json();
+        if (!response.ok) throw new Error(processed.error ?? "A processing stage failed. Please try again.");
+        current = processed;
         setSubmission(current);
       }
     } catch (caught) {
@@ -380,6 +534,7 @@ export default function Home() {
   function reset() {
     setFiles({ question_paper: null, answer_sheet: null });
     setSubmission(null);
+    setUploadedDocuments(null);
     setError("");
   }
 
@@ -392,7 +547,7 @@ export default function Home() {
   }
 
   if (submission?.stage === "done") {
-    return <ReviewWorkspace result={submission} onReset={reset} />;
+    return <ReviewWorkspace result={submission} uploads={uploadedDocuments} onReset={reset} />;
   }
 
   return (
@@ -414,18 +569,6 @@ export default function Home() {
       </section>
 
       <section className="upload-shell" id="upload-page">
-        <header className="site-header">
-          <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
-        </header>
-
-        <section className="upload-hero">
-          <div className="hero-copy">
-            <div className="hero-kicker"><Sparkles size={14} /> Your assessment sidekick</div>
-            <h1>Upload. Match.<br /><em>Level up!</em></h1>
-            <p>Drop in a question paper and handwritten answer sheet. Veda finds every response and maps it back to the right question.</p>
-          </div>
-        </section>
-
         <section className="upload-workspace">
           <div className="upload-grid">
             <UploadCard kind="question_paper" title="Question paper" description="The original assessment and marking scale" file={files.question_paper} onFile={updateFile} />
@@ -434,7 +577,7 @@ export default function Home() {
 
           {submission ? <PipelineProgress submission={submission} /> : (
             <div className="start-row">
-              <div className="privacy-note"><ShieldCheck size={18} /><span><strong>Private by design</strong><small>Files are used only for this assessment review.</small></span></div>
+              <div className="privacy-note"><ShieldCheck size={18} /><span><strong>Cloud upload</strong><small>Stored by UploadThing and sent to Gemini for extraction.</small></span></div>
               <button className="button button--primary" disabled={!ready || working} onClick={processSubmission}>
                 {working ? <LoaderCircle className="spin" size={17} /> : <Sparkles size={17} />}
                 Start mapping quest
@@ -444,13 +587,6 @@ export default function Home() {
           )}
           {error && <div className="error-banner"><CircleAlert size={16} />{error}</div>}
         </section>
-
-        <footer className="upload-footer">
-          <span>QUEST PATH</span>
-          <div><span>01</span> Find questions</div>
-          <div><span>02</span> Read answers</div>
-          <div><span>03</span> Verify matches</div>
-        </footer>
       </section>
     </main>
   );

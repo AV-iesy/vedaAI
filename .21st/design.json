@@ -45,6 +45,10 @@
       "--yellow": {
         "value": "#ffe995",
         "source": "app/globals.css"
+      },
+      "--beige": {
+        "value": "#f5ead7",
+        "source": "app/globals.css"
       }
     },
     "typography": {},
@@ -89,8 +93,12 @@
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
     },
     {
-      "decision": "Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and thick white Instrument Serif Italic text for all three elevated scenery-headline lines.",
-      "reason": "The user requested a stronger white cursive headline while retaining the selected editorial typeface and elevated composition."
+      "decision": "Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and Instrument Serif Italic for all three elevated scenery-headline lines.",
+      "reason": "The user requested one consistent cursive display face matching the supplied high-contrast editorial reference and asked for the composition to sit higher in the viewport."
+    },
+    {
+      "decision": "Use a light beige grid background with one enlarged, viewport-centered upload workspace, removing the redundant header, introductory hero, and Quest Path footer.",
+      "reason": "The user wanted a softer, focused second page where the two document upload cards are the single dominant element at the exact center."
     }
   ],
   "evidence": [

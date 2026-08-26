@@ -32,6 +32,7 @@ export interface QuestionMapping {
   confidence?: number;
   answerText?: string;
   regions: AnswerRegion[];
+  teacherConfirmed?: boolean;
 }
 
 export interface SubmissionResult {
