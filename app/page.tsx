@@ -5,7 +5,6 @@ import {
   ArrowRight,
   Check,
   CheckCircle2,
-  ChevronDown,
   CircleAlert,
   FileText,
   GraduationCap,
@@ -156,29 +155,6 @@ function StatusBadge({ status }: { status: MappingStatus }) {
       {status === "unanswered" ? <CircleAlert size={12} /> : <CheckCircle2 size={12} />}
       {statusCopy[status]}
     </span>
-  );
-}
-
-function PixelMascot({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={`pixel-mascot ${compact ? "pixel-mascot--compact" : ""}`} aria-hidden="true">
-      <div className="pixel-spark pixel-spark--one" />
-      <div className="pixel-spark pixel-spark--two" />
-      <div className="pixel-speech">Ready!</div>
-      <div className="pixel-character">
-        <span className="pixel-ear pixel-ear--left" />
-        <span className="pixel-ear pixel-ear--right" />
-        <span className="pixel-hair pixel-hair--left" />
-        <span className="pixel-hair pixel-hair--right" />
-        <span className="pixel-eye pixel-eye--left" />
-        <span className="pixel-eye pixel-eye--right" />
-        <span className="pixel-cheek pixel-cheek--left" />
-        <span className="pixel-cheek pixel-cheek--right" />
-        <span className="pixel-mouth" />
-        <span className="pixel-collar" />
-      </div>
-      <div className="pixel-shadow" />
-    </div>
   );
 }
 
@@ -415,7 +391,6 @@ export default function Home() {
     <main className="upload-shell">
       <header className="site-header">
         <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
-        <div className="header-meta"><span className="demo-pill">DEMO MODE</span><button className="icon-button" aria-label="Open workspace menu"><ChevronDown size={17} /></button></div>
       </header>
 
       <section className="upload-hero">
@@ -423,15 +398,6 @@ export default function Home() {
           <div className="hero-kicker"><Sparkles size={14} /> Your assessment sidekick</div>
           <h1>Upload. Match.<br /><em>Level up!</em></h1>
           <p>Drop in a question paper and handwritten answer sheet. Veda finds every response and maps it back to the right question.</p>
-          <div className="hero-tags">
-            <span>✦ Pixel-perfect regions</span>
-            <span>♥ Teacher in control</span>
-          </div>
-        </div>
-        <div className="hero-art">
-          <PixelMascot />
-          <div className="pixel-card pixel-card--question"><FileText size={18} /><span>Q. 04</span><b>+4 XP</b></div>
-          <div className="pixel-card pixel-card--match"><Check size={17} /><span>MATCH!</span></div>
         </div>
       </section>
 
