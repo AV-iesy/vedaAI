@@ -15,7 +15,7 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 
 - Tokens: app/globals.css
 - Components: None detected
-- Assets: public/assets/joyful-train-sky.png, public/assets/pixel-sunflower-field.png
+- Assets: public/assets/joyful-train-sky.png, public/assets/pixel-sunflower-field.png, public/assets/veda-ai-logo.png
 - Instructions: None detected
 
 ## Components
@@ -53,3 +53,4 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 - Use a colorful pastel anime and pixel-art visual language with crisp plum outlines, offset shadows, and compact review density.
 - Use an original wide pixel-art sunflower field, generated from the user's scenery and style references, as the active upload-screen background.
 - Reserve the first viewport exclusively for scenery and place the complete upload workflow in the second full section.
+- Place the supplied VedaAI logo at the scenery page's top-left and a glittering AI control at the top-right that opens the upload section.

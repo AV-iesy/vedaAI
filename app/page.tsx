@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -383,15 +384,41 @@ export default function Home() {
     setError("");
   }
 
+  function openUploadPage() {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("upload-page")?.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }
+
   if (submission?.stage === "done") {
     return <ReviewWorkspace result={submission} onReset={reset} />;
   }
 
   return (
     <main className="landing-shell">
-      <section className="scenery-page" aria-label="Pixel-art sunflower field" />
+      <section className="scenery-page" aria-label="Pixel-art sunflower field">
+        <header className="scenery-header">
+          <Image
+            className="scenery-logo"
+            src="/assets/veda-ai-logo.png"
+            alt="VedaAI"
+            width={278}
+            height={124}
+            priority
+          />
+          <button className="ai-glitter-button" type="button" onClick={openUploadPage} aria-label="Open Veda AI upload workspace">
+            <span className="ai-glitter ai-glitter--one">✦</span>
+            <span className="ai-glitter ai-glitter--two">✦</span>
+            <span className="ai-glitter ai-glitter--three">✦</span>
+            <span className="ai-glyph">AI</span>
+            <Sparkles className="ai-spark-icon" size={17} aria-hidden="true" />
+          </button>
+        </header>
+      </section>
 
-      <section className="upload-shell">
+      <section className="upload-shell" id="upload-page">
         <header className="site-header">
           <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
         </header>

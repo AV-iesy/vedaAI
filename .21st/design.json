@@ -15,7 +15,8 @@
     "components": [],
     "assets": [
       "public/assets/joyful-train-sky.png",
-      "public/assets/pixel-sunflower-field.png"
+      "public/assets/pixel-sunflower-field.png",
+      "public/assets/veda-ai-logo.png"
     ],
     "instructions": []
   },
@@ -87,6 +88,10 @@
     {
       "decision": "Reserve the first viewport exclusively for the sunflower scenery and move the complete upload experience to a second full section below it.",
       "reason": "The user requested an uncluttered first page with all interface content relocated to page two."
+    },
+    {
+      "decision": "Place the supplied VedaAI logo at the scenery page's top-left and a glittering AI control at the top-right that opens the upload section.",
+      "reason": "The user selected these two minimal navigation elements for the otherwise scenery-led first viewport."
     }
   ],
   "evidence": [
