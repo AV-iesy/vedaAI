@@ -99,6 +99,26 @@
     {
       "decision": "Use a light beige grid background with one enlarged, viewport-centered upload workspace, removing the redundant header, introductory hero, and Quest Path footer.",
       "reason": "The user wanted a softer, focused second page where the two document upload cards are the single dominant element at the exact center."
+    },
+    {
+      "decision": "Do not display bounding-box overlays on extracted answers in the review workspace.",
+      "reason": "The user prefers a clean reading surface without the detached pink region rectangles."
+    },
+    {
+      "decision": "Prioritize larger, highly legible question and mapping-detail typography across desktop and phone review layouts.",
+      "reason": "The user requested clearer reading sizes for assessment content and status information."
+    },
+    {
+      "decision": "Show unanswered questions as a centered pixel-style notice in soft red warning colors on the answer-sheet page.",
+      "reason": "The user wants missing responses to be unmistakable without displaying empty extracted-answer content."
+    },
+    {
+      "decision": "Show quick-check and unmatched-note summary counters only when their live result count is greater than zero.",
+      "reason": "Zero-value alert counters add noise and can look like hardcoded placeholder data."
+    },
+    {
+      "decision": "Keep the review header wordmark text-only and omit the source-regions-preserved summary badge.",
+      "reason": "The user requested a cleaner review header and summary without these decorative elements."
     }
   ],
   "evidence": [

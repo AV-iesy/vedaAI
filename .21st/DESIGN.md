@@ -60,3 +60,8 @@ Generated from project sources at 2026-08-26T08:19:20.824Z.
 - Reserve the first viewport exclusively for scenery and place the complete upload workflow in the second full section.
 - Use a plain VedaAI wordmark, a minimal purple-and-cream pixel assistant button with a beige hover state, and Instrument Serif Italic for all three elevated scenery-headline lines.
 - Use a light beige grid background with one enlarged, viewport-centered upload workspace, removing the redundant header, introductory hero, and Quest Path footer.
+- Keep extracted-answer pages free of bounding-box overlays.
+- Use larger, highly legible typography for question lists and mapping details on desktop and phone layouts.
+- Represent unanswered questions with a centered pixel-style soft-red notice on the answer-sheet page.
+- Hide zero-value quick-check and unmatched-note counters from the review summary.
+- Keep the review wordmark text-only and omit the source-regions-preserved summary badge.

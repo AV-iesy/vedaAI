@@ -7,10 +7,8 @@ import {
   CheckCircle2,
   CircleAlert,
   FileText,
-  GraduationCap,
   LoaderCircle,
   Maximize2,
-  MoreHorizontal,
   RotateCcw,
   Search,
   ShieldCheck,
@@ -169,7 +167,7 @@ function AnswerPage({
   active: QuestionMapping | null;
   pageCount: number;
 }) {
-  const regions = active?.regions.filter((region) => region.page === page) ?? [];
+  const unanswered = active?.status === "unanswered" || !active?.answerText;
 
   return (
     <article className="answer-page">
@@ -177,21 +175,16 @@ function AnswerPage({
         <span>EXTRACTED ANSWER</span>
         <span>Page {page} of {pageCount}</span>
       </div>
-      <div className="handwriting">
-        <p>{active?.answerText ?? "No answer was detected for this question."}</p>
-      </div>
-      {regions.map((region, index) => (
-        <span
-          className="highlight-region"
-          key={`${page}-${index}`}
-          style={{
-            left: `${region.bbox.x * 100}%`,
-            top: `${region.bbox.y * 100}%`,
-            width: `${region.bbox.width * 100}%`,
-            height: `${region.bbox.height * 100}%`,
-          }}
-        />
-      ))}
+      {unanswered ? (
+        <div className="unanswered-answer-box" role="status">
+          <CircleAlert size={27} aria-hidden="true" />
+          <strong>This question has not been answered.</strong>
+        </div>
+      ) : (
+        <div className="handwriting">
+          <p>{active.answerText}</p>
+        </div>
+      )}
     </article>
   );
 }
@@ -223,6 +216,9 @@ function ReviewWorkspace({
     `${mapping.displayNumber} ${mapping.questionText}`.toLowerCase().includes(query.toLowerCase()),
   );
   const matchedCount = mappings.filter((mapping) => mapping.status !== "unanswered").length;
+  const lowConfidenceCount = mappings.filter((mapping) => mapping.status === "low_confidence").length;
+  const unmatchedCount = reviewResult.unmatchedAnswers?.length ?? 0;
+  const hasSecondarySummary = lowConfidenceCount > 0 || unmatchedCount > 0 || Boolean(gradingResult);
   const activeGrade = gradingResult?.evaluations.find((evaluation) => (
     evaluation.question_number.toLowerCase().replace(/[^a-z0-9]/gu, "")
     === active?.displayNumber.toLowerCase().replace(/[^a-z0-9]/gu, "")
@@ -307,7 +303,7 @@ function ReviewWorkspace({
   return (
     <main className="review-shell">
       <header className="review-header">
-        <div className="brand"><span><GraduationCap size={21} /></span><div>Veda AI<small>STUDY QUEST</small></div></div>
+        <div className="brand"><div>Veda AI<small>STUDY QUEST</small></div></div>
         <div className="submission-name">
           <strong>Science assessment</strong>
           <span>Processed just now · Gemini 2.5 Flash</span>
@@ -318,17 +314,15 @@ function ReviewWorkspace({
             {grading ? <LoaderCircle className="spin" size={15} /> : gradingResult ? <Check size={15} /> : <Sparkles size={15} />}
             {grading ? "Grading…" : gradingResult ? "Graded" : "Grade answers"}
           </button>
-          <button className="icon-button" aria-label="More options"><MoreHorizontal size={19} /></button>
         </div>
       </header>
 
       <section className="review-summary">
         <div><span className="summary-score">{matchedCount}/{mappings.length}</span><span>answers located</span></div>
-        <div className="summary-separator" />
-        <div><strong>{mappings.filter((item) => item.status === "low_confidence").length}</strong><span>needs a quick check</span></div>
-        <div><strong>{reviewResult.unmatchedAnswers?.length ?? 0}</strong><span>unmatched note</span></div>
+        {hasSecondarySummary && <div className="summary-separator" />}
+        {lowConfidenceCount > 0 && <div><strong>{lowConfidenceCount}</strong><span>needs a quick check</span></div>}
+        {unmatchedCount > 0 && <div><strong>{unmatchedCount}</strong><span>unmatched {unmatchedCount === 1 ? "note" : "notes"}</span></div>}
         {gradingResult && <div><strong>{gradingResult.overall_score}/{gradingResult.total_marks}</strong><span>AI-suggested score</span></div>}
-        <div className="summary-confidence"><ShieldCheck size={15} /> Source regions preserved <span className="pixel-star">✦</span></div>
       </section>
 
       <div className="review-grid">
